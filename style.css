@@ -1,6 +1,10 @@
 button{
     height: 100px;
     width: 100px;
+    max-height: 100px;
+    min-height: 100px;
+    max-width: 100px;
+    min-width: 100px;
 }
 
 .buttons{
@@ -8,4 +12,8 @@ button{
     flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+
+h1{
+    text-align: center;
 }
