@@ -19,6 +19,8 @@ const eighth = document.querySelector("#eight");
 eighth.innerHTML =  '\u2060'; rowThree.appendChild(eighth);
 const ninth = document.querySelector("#nine");
 ninth.innerHTML =  '\u2060'; rowThree.appendChild(ninth);
+const content = document.querySelector(".content");
+const hold = document.querySelector(".hold");
 
 
 
@@ -36,23 +38,35 @@ const gameInterface = (board) => {
 
     let win = () => {
         if(board.row1[0]===1 && board.row2[0]===1 && board.row3[0]===1 || board.row1[1]===1 && board.row2[1]===1 && board.row3[1]===1 || board.row1[2]===1 && board.row2[2]===1 && board.row3[2]===1){
+            content.innerHTML =  "Congrats, Player One Wins!";
+            hold.replaceChild(content, content);
             return true;
         };
         if(board.row1[0]===2 && board.row2[0]===2 && board.row3[0]===2 || board.row1[1]===2 && board.row2[1]===2 && board.row3[1]===2 || board.row1[2]===2 && board.row2[2]===2 && board.row3[2]===2){
+            content.innerHTML =  "Congrats, Player Two Wins!";
+            hold.replaceChild(content, content);
             return true;
         };
     
         if(board.row1[0]===1 && board.row1[1]===1 && board.row1[2]===1 || board.row2[0]===1 && board.row2[1]===1 && board.row2[2]===1 || board.row3[0]===1 && board.row3[1]===1 && board.row3[2]===1){
+            content.innerHTML =  "Congrats, Player One Wins!";
+            hold.replaceChild(content, content);
             return true;
         };
         if(board.row1[0]===2 && board.row1[1]===2 && board.row1[2]===2 || board.row2[0]===2 && board.row2[1]===2 && board.row2[2]===2 || board.row3[0]===2 && board.row3[1]===2 && board.row3[2]===2){
+            content.innerHTML =  "Congrats, Player Two Wins!";
+            hold.replaceChild(content, content);
             return true;
         };
         if(board.row1[0]===1 && board.row2[1]===1 && board.row3[2]===1 ||board.row1[2]===1 && board.row2[1]===1 && board.row3[0]===1){
+            content.innerHTML =  "Congrats, Player One Wins!";
+            hold.replaceChild(content, content);
             return true;
         };
     
         if(board.row1[0]===2 && board.row2[1]===2 && board.row3[2]===2 || board.row1[2]===2 && board.row2[1]===2 && board.row3[0]===2){
+            content.innerHTML =  "Congrats, Player Two Wins!";
+            hold.replaceChild(content, content);
             return true;
         };
 
@@ -68,11 +82,23 @@ const gameInterface = (board) => {
         }
     };
 
+    const endCheck = () => {
+        if(win()){
+            win();
+        } else if(turnCounter>=9){
+            content.innerHTML =  "Sorry, it's a tie!";
+            hold.replaceChild(content, content);
+        }
+
+    };
+
 
     const moveX = (row, col) => {
         if(win()){
             return;
-        } else{
+        } else if(turnCounter>=9){
+            return;
+        }else{
             if(row === 1){
                 if(isEmpty(board.row1[col])){
                     board.row1[col] = 1;
@@ -126,7 +152,7 @@ const gameInterface = (board) => {
                 }
             }
         }
-       
+       endCheck();
     };
 
     const moveO = (row, col) => {
@@ -188,6 +214,7 @@ const gameInterface = (board) => {
                 }
             }
         }
+        endCheck();
     };
 
     return {moveO, moveX, win, isEmpty};
